@@ -10,6 +10,7 @@ public class Application {
     static ResponseTransformer toJson = new Gson()::toJson;
 
     public static void main(String[] args) {
+        //port(8080); if you don't like default
         staticFileLocation("webapp"); // it maps index.html to "/"
 
         post("/add", FileController::addFile, toJson);
