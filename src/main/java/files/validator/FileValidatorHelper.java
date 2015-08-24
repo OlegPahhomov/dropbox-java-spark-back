@@ -23,7 +23,7 @@ public class FileValidatorHelper {
     }
 
     /**
-     * If we can get an image for each part and it's not a null (.getXxx succeeds)
+     * All are non-null pictures
      */
     private static boolean onlyImages(Request request) {
         try {
@@ -38,11 +38,12 @@ public class FileValidatorHelper {
     }
 
     /**
-     * If we can get id out, and it's a number, it is correct
+     * There is a non-null integer id
      */
     public static boolean validId(Request request) {
         try {
             Integer id = Integer.valueOf(request.params(":id"));
+            id = id + 1;
             return true;
         } catch (Exception e) {
             return false;
