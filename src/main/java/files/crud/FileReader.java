@@ -18,7 +18,6 @@ import java.sql.SQLException;
  * Keep here only simple methods
  */
 public class FileReader {
-
     static QueryRunner queryRunner = new QueryRunner();
 
     public static Object getPictures() throws SQLException {
@@ -28,8 +27,7 @@ public class FileReader {
     }
 
     public static Object getPicture(Request request) throws SQLException {
-        Long id = Long.valueOf(request.params(":id"));
-        return getPicture(id);
+        return getPicture(Long.valueOf(request.params(":id")));
     }
 
     public static Object getPicture(Long id) throws SQLException {

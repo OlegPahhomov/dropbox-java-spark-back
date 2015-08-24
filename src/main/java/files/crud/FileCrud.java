@@ -2,6 +2,7 @@ package files.crud;
 
 import config.AppDataSource;
 import files.util.FileResizer;
+import files.util.FileUtil;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.Part;
@@ -17,10 +18,6 @@ import java.util.stream.Stream;
  * Create, read, update, delete
  */
 public class FileCrud {
-
-
-    public static final String UNKNOWN = "unknown";
-    public static final String FILENAME = "filename";
 
     public static void saveOneFile(Part file) throws SQLException, IOException {
         try (Connection connection = AppDataSource.getTransactConnection();
@@ -41,7 +38,7 @@ public class FileCrud {
 
     private static void resizePictureIfNeededAndFillPS(PreparedStatement ps, Part part) throws IOException, SQLException {
         BufferedImage img = ImageIO.read(part.getInputStream());
-        String fileName = getFileName(part);
+        String fileName = FileUtil.getFileName(part);
         if (FileResizer.needsResize(img)) {
             BufferedImage resizedImage = FileResizer.dynamicResize(img);
             ByteArrayOutputStream os = FileResizer.getByteArrayOutputStream(resizedImage);
@@ -59,26 +56,5 @@ public class FileCrud {
         ps.executeUpdate();
     }
 
-    /**
-     * hack from the web, rewritten to java8
-     */
-    private static String getFileName(Part part) {
-        String[] split = part.getHeader("content-disposition").split(";");
-        return Stream.of(split)
-                .filter(cd -> cd.trim().startsWith(FILENAME))
-                .map(FileCrud::getFileName)
-                .findFirst()
-                .orElse(UNKNOWN);
-    }
 
-    /**
-     * Raw is "filename="Mypic.jpg""
-     * We need to return: Mypic.jpg
-     */
-    private static String getFileName(String rawHeader) {
-        return rawHeader
-                .substring(rawHeader.indexOf('=') + 1)
-                .trim()
-                .replace("\"", "");
-    }
 }

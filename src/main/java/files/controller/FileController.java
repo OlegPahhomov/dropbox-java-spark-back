@@ -18,25 +18,19 @@ public class FileController {
 
     public static String addFile(Request request, Response response) throws IOException, ServletException, SQLException {
         setRequestMultiPartFile(request);
-        if (FileValidator.invalidInsert(request)) {
-            return "failure";
-        }
+        if (FileValidator.invalidInsert(request)) return "failure";
         FileService.saveFilesToDb(request);
         return "success";
     }
 
     public static String deleteFile(Request request, Response response) throws SQLException {
-        if (FileValidator.invalidDelete(request)) {
-            return "failure";
-        }
+        if (FileValidator.invalidDelete(request)) return "failure";
         FileService.deleteFileFromDb(request);
         return "success";
     }
 
     public static Object getPicture(Request request, Response response) throws SQLException {
-        if (FileValidator.invalidGetById(request)){
-            return "failure";
-        }
+        if (FileValidator.invalidGetById(request)) return "failure";
         response.type("image/jpeg");
         return FileReader.getPicture(request);
     }

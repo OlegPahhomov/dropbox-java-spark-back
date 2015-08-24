@@ -6,6 +6,12 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+/**
+ * Resizes files to WIDTH_MAX or HEIGHT_MAX proportionally.
+ * Example: If picture is 400, 200 and allowed max is 100, 100,
+ * then resulting picture is 100, 50.
+ * 25% of original
+ */
 public class FileResizer {
 
     public static final int WIDTH_MAX = 1600;
