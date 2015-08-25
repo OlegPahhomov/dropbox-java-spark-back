@@ -9,7 +9,7 @@ To run:
 * 1) You need front-end project, this is just API
 * 2) You need Postgres database (or reconfig more in point 3)
 * 3) change Appconfig.java and pom.xml database password (default postgres config)
-* 4) run mvn flyway:migrate
+* 4) run mvn clean install flyway:clean flyway:migrate
 * 5) start main in Application.java, spark runs on http://localhost:4567/
 * 6) If you have front-end project, reconfigure serverConfig.js
 
