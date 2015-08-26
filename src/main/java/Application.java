@@ -1,5 +1,7 @@
 import com.google.gson.Gson;
 import files.controller.FileController;
+import files.routes.FileGetterRouter;
+import files.routes.FileManipulatorRouter;
 import spark.*;
 
 import static spark.Spark.*;
@@ -12,11 +14,8 @@ public class Application {
     public static void main(String[] args) {
         //port(8080); if you don't like default
 
-        post("/add", FileController::addFile, toJson);
-        post("/remove/:id", FileController::deleteFile, toJson);
-
-        get("/files", FileController::getPictures, toJson);
-        get("/picture/:id", FileController::getPicture);
+        FileGetterRouter.start();
+        FileManipulatorRouter.start();
 
         after((request, response) -> {
             // For security reasons do not forget to change "*" to url
