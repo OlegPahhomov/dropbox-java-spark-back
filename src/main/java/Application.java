@@ -1,8 +1,6 @@
 import com.google.gson.Gson;
 import files.controller.FileController;
-import files.routes.FileGetterRouter;
-import files.routes.FileManipulatorRouter;
-import spark.*;
+import spark.ResponseTransformer;
 
 import static spark.Spark.*;
 
