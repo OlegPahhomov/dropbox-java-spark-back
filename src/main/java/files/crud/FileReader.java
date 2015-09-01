@@ -22,7 +22,7 @@ public class FileReader {
 
     public static Object getPictures() throws SQLException {
         try (Connection connection = AppDataSource.getConnection()) {
-            return queryRunner.query(connection, "SELECT *, IMAGE_WIDTH::float / IMAGE_HEIGHT AS RATIO FROM FILE", new MapListHandler());
+            return queryRunner.query(connection, "SELECT ID, NAME, IMAGE_WIDTH::float / IMAGE_HEIGHT AS RATIO FROM FILE", new MapListHandler());
         }
     }
 
