@@ -22,10 +22,12 @@ public class Application {
         });
 
         after("/picture/:id", (request, response) -> response.type("image/jpg"));
+        after("/picture/small/:id", (request, response) -> response.type("image/jpg"));
     }
 
     private static void start() throws SQLException {
         get("/files", (request, response) -> FileReader.getPictures(), toJson);
+        get("/picture/small/:id", FileController::getThumbnail);
         get("/picture/:id", FileController::getPicture);
         post("/add", FileController::addFile, toJson);
         post("/remove/:id", FileController::deleteFile, toJson);

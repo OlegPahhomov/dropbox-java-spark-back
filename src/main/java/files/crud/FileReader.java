@@ -21,17 +21,19 @@ public class FileReader {
 
     public static Object getPictures() throws SQLException {
         try (Connection connection = AppDataSource.getConnection()) {
-            return queryRunner.query(connection, "SELECT ID, NAME, IMAGE_WIDTH::float / IMAGE_HEIGHT AS RATIO FROM FILE", new MapListHandler());
+            return queryRunner.query(connection, "SELECT ID, NAME, RATIO FROM FILE", new MapListHandler());
         }
-    }
-
-    public static Object getPicture(String idString) throws SQLException {
-        return getPicture(Long.valueOf(idString));
     }
 
     public static Object getPicture(Long id) throws SQLException {
         try (Connection connection = AppDataSource.getConnection()) {
-            return queryRunner.query(connection, "SELECT content FROM FILE WHERE ID=?", new ScalarHandler<>(), id);
+            return queryRunner.query(connection, "select content from content where file_id = ? and type = 'picture'", new ScalarHandler<>(), id);
+        }
+    }
+
+    public static Object getThumbnail(Long id) throws SQLException {
+        try (Connection connection = AppDataSource.getConnection()) {
+            return queryRunner.query(connection, "select content from content where file_id = ? and type = 'thumbnail'", new ScalarHandler<>(), id);
         }
     }
 }
