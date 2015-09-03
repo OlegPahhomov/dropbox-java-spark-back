@@ -14,7 +14,6 @@ public class DaoUtil {
         return (double) img.getWidth() / (double) img.getHeight();
     }
 
-
     public static int getId(PreparedStatement filePs) throws SQLException {
         ResultSet generatedKeys = filePs.getGeneratedKeys();
         if (generatedKeys.next()){
