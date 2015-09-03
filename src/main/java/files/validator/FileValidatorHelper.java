@@ -40,9 +40,9 @@ public class FileValidatorHelper {
     /**
      * There is a non-null integer id
      */
-    public static boolean validId(Request request) {
+    public static boolean validId(String idString) {
         try {
-            Integer id = Integer.valueOf(request.params(":id"));
+            Integer id = Integer.valueOf(idString);
             id = id + 1;
             return true;
         } catch (Exception e) {

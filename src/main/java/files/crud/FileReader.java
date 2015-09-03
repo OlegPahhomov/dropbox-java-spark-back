@@ -4,7 +4,6 @@ import config.AppDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import spark.Request;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,8 +25,8 @@ public class FileReader {
         }
     }
 
-    public static Object getPicture(Request request) throws SQLException {
-        return getPicture(Long.valueOf(request.params(":id")));
+    public static Object getPicture(String idString) throws SQLException {
+        return getPicture(Long.valueOf(idString));
     }
 
     public static Object getPicture(Long id) throws SQLException {

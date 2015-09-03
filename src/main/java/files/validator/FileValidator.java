@@ -10,12 +10,12 @@ public class FileValidator {
         return ! (containsParts(request) && validContent(request));
     }
 
-    public static boolean invalidDelete(Request request) {
-        return ! validId(request);
+    public static boolean invalidDelete(String idString) {
+        return ! validId(idString);
     }
 
-    public static boolean invalidGetById(Request request) {
-        return ! validId(request);
+    public static boolean invalidGetById(String idString) {
+        return ! validId(idString);
     }
 
 }

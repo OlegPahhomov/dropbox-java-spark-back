@@ -27,10 +27,10 @@ public class FileCrud {
         }
     }
 
-    public static void deleteOneFile(Integer id) throws SQLException {
+    public static void deleteOneFile(Long id) throws SQLException {
         try (Connection connection = AppDataSource.getTransactConnection();
              PreparedStatement ps = connection.prepareStatement("DELETE FROM FILE WHERE ID=?")) {
-            ps.setInt(1, id);
+            ps.setLong(1, id);
             ps.executeUpdate();
             connection.commit();
         }

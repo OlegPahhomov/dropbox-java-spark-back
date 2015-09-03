@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 public class FileService {
 
@@ -20,8 +19,8 @@ public class FileService {
         //parts.forEach(FileCrud::saveOneFile); can't do this if exceptions are unfixed
     }
 
-    public static void deleteFileFromDb(Request request) throws SQLException {
-        Integer id = Integer.valueOf(request.params(":id"));
+    public static void deleteFileFromDb(String idString) throws SQLException {
+        Long id = Long.valueOf(idString);
         FileCrud.deleteOneFile(id);
     }
 
