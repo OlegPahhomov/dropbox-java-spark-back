@@ -74,17 +74,8 @@ public class FileCrud {
         filePs.executeUpdate();
     }
 
-    public static void insertToContent(PreparedStatement contentPs, int fileId, BufferedImage img, Predicate<BufferedImage> checker, BiFunction<Integer, Integer, Result> functionCalc, String type) throws IOException, SQLException {
-        img = resizeIfNeeded(img, checker, functionCalc);
-        ByteArrayOutputStream stream = FileUtil.getOutputStreamOf(img);
-        contentPs.setInt(1, fileId);
-        contentPs.setString(2, type);
-        contentPs.setBinaryStream(3, new ByteArrayInputStream(stream.toByteArray()), stream.size());
-        contentPs.executeUpdate();
-    }
-
-    public static BufferedImage resizeIfNeeded(BufferedImage img, Predicate<BufferedImage> checker, BiFunction<Integer, Integer, Result> functionCalc) {
-        if (checker.test(img)) img = Calculator.resize(img, functionCalc);
+    public static BufferedImage resizeIfNeeded(BufferedImage img, Predicate<BufferedImage> needsResizeFunc, BiFunction<Integer, Integer, Result> resizeCalculationFunc) {
+        if (needsResizeFunc.test(img)) img = Calculator.resize(img, resizeCalculationFunc);
         return img;
     }
 
