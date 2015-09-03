@@ -38,8 +38,10 @@ public class V3__Insert_files_and_content implements JdbcMigration {
         BufferedImage img = ImageIO.read(file);
         FileCrud.insertToFile(filePs, file.getName(), FileUtil.getRatio(img));
         int file_id = FileUtil.getId(filePs);
-        FileCrud.insertToContent(contentPs, file_id, img, Calculator::needsPictureResize, Calculator::calculatePictureSize, "picture");
-        FileCrud.insertToContent(contentPs, file_id, img, Calculator::needsThumbnailResize, Calculator::calculateThumbNailSize, "thumbnail");
+        img = FileCrud.resizeIfNeeded(img, Calculator::needsPictureResize, Calculator::calculatePictureSize);
+        FileCrud.fillToContent(contentPs, file_id, img, "picture");
+        img = FileCrud.resizeIfNeeded(img, Calculator::needsThumbnailResize, Calculator::calculateThumbNailSize);
+        FileCrud.fillToContent(contentPs, file_id, img, "thumbnail");
     }
 
 

@@ -55,15 +55,15 @@ public class FileCrud {
         insertToFile(filePs, fileName, FileUtil.getRatio(img));
         int file_id = FileUtil.getId(filePs);
         img = resizeIfNeeded(img, Calculator::needsPictureResize, Calculator::calculatePictureSize);
-        fillToContent(contentPs, file_id, img);
+        fillToContent(contentPs, file_id, img, "picture");
         img = resizeIfNeeded(img, Calculator::needsThumbnailResize, Calculator::calculateThumbNailSize);
-        fillToContent(contentPs, file_id, img);
+        fillToContent(contentPs, file_id, img, "thumbnail");
     }
 
-    private static void fillToContent(PreparedStatement contentPs, int file_id, BufferedImage img) throws IOException, SQLException {
+    public static void fillToContent(PreparedStatement contentPs, int file_id, BufferedImage img, String type) throws IOException, SQLException {
         ByteArrayOutputStream stream = FileUtil.getOutputStreamOf(img);
         contentPs.setInt(1, file_id);
-        contentPs.setString(2, "picture");
+        contentPs.setString(2, type);
         contentPs.setBinaryStream(3, new ByteArrayInputStream(stream.toByteArray()), stream.size());
         contentPs.executeUpdate();
     }
@@ -83,7 +83,7 @@ public class FileCrud {
         contentPs.executeUpdate();
     }
 
-    private static BufferedImage resizeIfNeeded(BufferedImage img, Predicate<BufferedImage> checker, BiFunction<Integer, Integer, Result> functionCalc) {
+    public static BufferedImage resizeIfNeeded(BufferedImage img, Predicate<BufferedImage> checker, BiFunction<Integer, Integer, Result> functionCalc) {
         if (checker.test(img)) img = Calculator.resize(img, functionCalc);
         return img;
     }
