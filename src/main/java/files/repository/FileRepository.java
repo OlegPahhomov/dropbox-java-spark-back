@@ -3,7 +3,7 @@ package files.repository;
 import config.AppDataSource;
 import files.dao.ContentDao;
 import files.dao.FileDao;
-import files.service.Resizer;
+import files.resizer.Resizer;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

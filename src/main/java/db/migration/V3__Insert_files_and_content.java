@@ -1,8 +1,8 @@
 package db.migration;
 
 import files.dao.DaoUtil;
-import files.service.Calculator;
-import files.service.Resizer;
+import files.resizer.Calculator;
+import files.resizer.Resizer;
 import org.flywaydb.core.api.migration.jdbc.JdbcMigration;
 
 import javax.imageio.ImageIO;

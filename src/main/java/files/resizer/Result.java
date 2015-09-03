@@ -1,4 +1,4 @@
-package files.service;
+package files.resizer;
 
 public class Result {
     public int width;

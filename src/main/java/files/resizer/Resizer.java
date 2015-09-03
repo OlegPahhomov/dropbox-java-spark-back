@@ -1,4 +1,4 @@
-package files.service;
+package files.resizer;
 
 import org.imgscalr.Scalr;
 
