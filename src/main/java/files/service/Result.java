@@ -1,7 +1,6 @@
-package files.util;
+package files.service;
 
 public class Result {
-
     public int width;
     public int height;
 

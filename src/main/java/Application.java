@@ -1,6 +1,6 @@
 import com.google.gson.Gson;
 import files.controller.FileController;
-import files.crud.FileReader;
+import files.dao.FileDao;
 import spark.ResponseTransformer;
 
 import java.sql.SQLException;
@@ -26,7 +26,7 @@ public class Application {
     }
 
     private static void start() throws SQLException {
-        get("/files", (request, response) -> FileReader.getPictures(), toJson);
+        get("/files", (request, response) -> FileDao.getPictures(), toJson);
         get("/picture/small/:id", FileController::getThumbnail);
         get("/picture/:id", FileController::getPicture);
         post("/add", FileController::addFile, toJson);

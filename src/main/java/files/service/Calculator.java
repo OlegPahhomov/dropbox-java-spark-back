@@ -1,9 +1,6 @@
-package files.util;
-
-import org.imgscalr.Scalr;
+package files.service;
 
 import java.awt.image.BufferedImage;
-import java.util.function.BiFunction;
 
 public class Calculator {
     private static final int PICTURE_WIDTH_MAX = 1600;
@@ -12,12 +9,6 @@ public class Calculator {
     private static final int THUMBNAIL_HEIGHT_MAX = 300;
 
     private Calculator(){}
-
-    public static BufferedImage resize(BufferedImage img, BiFunction<Integer, Integer, Result> calculateResize) {
-        Result result = calculateResize.apply(img.getWidth(), img.getHeight());
-        img = Scalr.resize(img, Scalr.Method.QUALITY, result.width, result.height);
-        return img;
-    }
 
     public static Result calculatePictureSize(int width, int height){
         return calculateDimensions(width, height, PICTURE_WIDTH_MAX, PICTURE_HEIGHT_MAX);
