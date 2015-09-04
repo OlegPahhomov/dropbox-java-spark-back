@@ -26,11 +26,11 @@ public class Calculator {
         return needsResize(image.getWidth(), image.getHeight(), THUMBNAIL_WIDTH_MAX, THUMBNAIL_HEIGHT_MAX);
     }
 
-    private static boolean needsResize(int width, int height, double widthMax, double heightMax) {
+    static boolean needsResize(int width, int height, double widthMax, double heightMax) {
         return width > widthMax || height > heightMax;
     }
 
-    private static Result calculateDimensions(int width, int height, int widthMax, int heightMax){
+    static Result calculateDimensions(int width, int height, int widthMax, int heightMax){
         double percentOfOriginal = maxResizePercent(width, height, widthMax, heightMax);
         width = adjust(width, percentOfOriginal);
         height = adjust(height, percentOfOriginal);
@@ -41,7 +41,7 @@ public class Calculator {
         return (int) (percentOfOriginal * param);
     }
 
-    private static double maxResizePercent(int width, int height, int widthMax, int heightMax) {
+    static double maxResizePercent(int width, int height, int widthMax, int heightMax) {
         return 1. - getNeededPercentChange(width, height, widthMax, heightMax);
     }
 

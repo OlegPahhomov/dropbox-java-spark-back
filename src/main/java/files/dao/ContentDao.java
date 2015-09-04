@@ -13,22 +13,21 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ContentDao {
-
     static QueryRunner queryRunner = new QueryRunner();
 
-    public static void saveContentRow(Connection connection, int fileId, BufferedImage img1, String picture) throws SQLException, IOException {
+    public static int saveContentRow(Connection connection, int fileId, String type, BufferedImage img) throws SQLException, IOException {
         PreparedStatement contentPs = connection.prepareStatement("INSERT INTO CONTENT(file_id, type, content) VALUES (?, ?, ?)");
-        ByteArrayOutputStream stream = DaoUtil.getOutputStreamOf(img1);
+        ByteArrayOutputStream stream = DaoUtil.getOutputStreamOf(img);
         contentPs.setInt(1, fileId);
-        contentPs.setString(2, picture);
+        contentPs.setString(2, type);
         contentPs.setBinaryStream(3, new ByteArrayInputStream(stream.toByteArray()), stream.size());
-        contentPs.executeUpdate();
+        return contentPs.executeUpdate();
     }
 
-    public static void deleteContentRowByFileId(Connection connection, Long id) throws SQLException {
+    public static int deleteContentRowByFileId(Connection connection, Long id) throws SQLException {
         PreparedStatement contentPs = connection.prepareStatement("DELETE FROM CONTENT WHERE FILE_ID=?");
         contentPs.setLong(1, id);
-        contentPs.executeUpdate();
+        return contentPs.executeUpdate();
     }
 
     public static Object getPicture(Long id) throws SQLException {

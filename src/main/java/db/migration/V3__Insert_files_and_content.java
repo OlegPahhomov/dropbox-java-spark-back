@@ -35,7 +35,7 @@ public class V3__Insert_files_and_content implements JdbcMigration {
         BufferedImage image = ImageIO.read(file);
 
         int fileId = FileDao.saveFileRow(connection, image, file.getName());
-        ContentDao.saveContentRow(connection, fileId, Resizer.getPicture(image), PICTURE);
-        ContentDao.saveContentRow(connection, fileId, Resizer.getThumbnail(image), THUMBNAIL);
+        ContentDao.saveContentRow(connection, fileId, PICTURE, Resizer.getPicture(image));
+        ContentDao.saveContentRow(connection, fileId, THUMBNAIL, Resizer.getThumbnail(image));
     }
 }

@@ -22,7 +22,7 @@ public class Resizer {
         return img;
     }
 
-    private static BufferedImage resize(BufferedImage img, BiFunction<Integer, Integer, Result> resizeCalculationFunc) {
+    static BufferedImage resize(BufferedImage img, BiFunction<Integer, Integer, Result> resizeCalculationFunc) {
         Result result = resizeCalculationFunc.apply(img.getWidth(), img.getHeight());
         return Scalr.resize(img, Scalr.Method.QUALITY, result.width, result.height);
     }

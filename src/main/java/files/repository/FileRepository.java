@@ -23,8 +23,8 @@ public class FileRepository {
         try (Connection connection = AppDataSource.getTransactConnection()) {
 
             int fileId = FileDao.saveFileRow(connection, image, fileName);
-            ContentDao.saveContentRow(connection, fileId, Resizer.getPicture(image), PICTURE);
-            ContentDao.saveContentRow(connection, fileId, Resizer.getThumbnail(image), THUMBNAIL);
+            ContentDao.saveContentRow(connection, fileId, PICTURE, Resizer.getPicture(image));
+            ContentDao.saveContentRow(connection, fileId, THUMBNAIL, Resizer.getThumbnail(image));
 
             connection.commit();
         }
@@ -33,7 +33,7 @@ public class FileRepository {
     public static void deleteOneFile(Long id) throws SQLException {
         try (Connection connection = AppDataSource.getTransactConnection()) {
             ContentDao.deleteContentRowByFileId(connection, id);
-            FileDao.deleteFileRow(id, connection);
+            FileDao.deleteFileRow(connection, id);
             connection.commit();
         }
     }
