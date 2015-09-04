@@ -30,7 +30,7 @@ public class V3__Insert_files_and_content implements JdbcMigration {
         insertToDb(connection, DRAKENSANG);
     }
 
-    private void insertToDb(Connection connection, String fileLocation) throws IOException, SQLException {
+    void insertToDb(Connection connection, String fileLocation) throws IOException, SQLException {
         File file = new File(fileLocation);
         BufferedImage image = ImageIO.read(file);
 

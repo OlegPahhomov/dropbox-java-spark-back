@@ -19,23 +19,15 @@ public class FileRepository {
     public static final String PICTURE = "picture";
     public static final String THUMBNAIL = "thumbnail";
 
-    public static void saveOnePicture(BufferedImage image, String fileName) throws SQLException, IOException {
-        try (Connection connection = AppDataSource.getTransactConnection()) {
-
-            int fileId = FileDao.saveFileRow(connection, image, fileName);
-            ContentDao.saveContentRow(connection, fileId, PICTURE, Resizer.getPicture(image));
-            ContentDao.saveContentRow(connection, fileId, THUMBNAIL, Resizer.getThumbnail(image));
-
-            connection.commit();
-        }
+    public static int saveOnePicture(Connection connection, BufferedImage image, String fileName) throws SQLException, IOException {
+        int fileId = FileDao.saveFileRow(connection, image, fileName);
+        ContentDao.saveContentRow(connection, fileId, PICTURE, Resizer.getPicture(image));
+        ContentDao.saveContentRow(connection, fileId, THUMBNAIL, Resizer.getThumbnail(image));
+        return fileId;
     }
 
-    public static void deleteOneFile(Long id) throws SQLException {
-        try (Connection connection = AppDataSource.getTransactConnection()) {
-            ContentDao.deleteContentRowByFileId(connection, id);
-            FileDao.deleteFileRow(connection, id);
-            connection.commit();
-        }
+    public static void deleteOneFile(Connection connection, Long id) throws SQLException {
+        ContentDao.deleteContentRowByFileId(connection, id);
+        FileDao.deleteFileRow(connection, id);
     }
-
 }

@@ -1,6 +1,7 @@
 package files.controller;
 
 import files.service.FileService;
+import files.service.FileServiceCached;
 import files.validator.FileValidator;
 import spark.Request;
 import spark.Response;
@@ -31,13 +32,13 @@ public class FileController {
     public static Object getPicture(Request request, Response response) throws SQLException {
         String idString = request.params(":id");
         if (FileValidator.invalidGetById(idString)) halt();
-        return FileService.getPicture(idString);
+        return FileServiceCached.getPicture(idString);
     }
 
     public static Object getThumbnail(Request request, Response response) throws SQLException {
         String idString = request.params(":id");
         if (FileValidator.invalidGetById(idString)) halt();
-        return FileService.getThumbnail(idString);
+        return FileServiceCached.getThumbnail(idString);
     }
 
     private static void setRequestMultiPartFile(Request request) {

@@ -11,12 +11,10 @@ public class FileServiceCached extends FileService{
     private static Map<Long, Object> pictureCache = new HashMap<>();
     private static Map<Long, Object> thumbnailCache = new HashMap<>();
 
-
-
     public static Object getPicture(String idString) throws SQLException {
         Long id = Long.valueOf(idString);
         if (pictureCache.containsKey(id)) return pictureCache.get(id);
-        Object picture = FileService.getPicture(idString);
+        Object picture = FileService.getPicture(id);
         pictureCache.put(id, picture);
         return picture;
     }
@@ -24,7 +22,7 @@ public class FileServiceCached extends FileService{
     public static Object getThumbnail(String idString) throws SQLException {
         Long id = Long.valueOf(idString);
         if (thumbnailCache.containsKey(id)) return thumbnailCache.get(id);
-        Object thumbnail = ContentDao.getThumbnail(id);
+        Object thumbnail = FileService.getThumbnail(id);
         thumbnailCache.put(id, thumbnail);
         return thumbnail;
     }
