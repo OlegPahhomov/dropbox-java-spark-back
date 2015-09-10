@@ -17,9 +17,9 @@ public class FileController {
 
     public static String addFile(Request request, Response response) throws IOException, ServletException, SQLException {
         setRequestMultiPartFile(request);
-        if (FileValidator.invalidInsert(request)) return "failure";
+        if (FileValidator.invalidInsert(request)) return "";
         FileService.saveFilesToDb(request);
-        return "success";
+        return "";
     }
 
     public static String deleteFile(Request request, Response response) throws SQLException {
