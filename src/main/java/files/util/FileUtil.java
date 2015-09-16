@@ -6,7 +6,9 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.Part;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -48,7 +50,15 @@ public class FileUtil {
 
 
     public static BufferedImage createBufferedImageFrom(Part file) throws IOException {
-        return ImageIO.read(file.getInputStream());
+        return createBufferedImageFrom(file.getInputStream());
+    }
+
+    private static BufferedImage createBufferedImageFrom(InputStream inputStream) throws IOException {
+        return ImageIO.read(inputStream);
+    }
+
+    public static BufferedImage createBufferedImageFrom(byte[] content) throws IOException {
+        return ImageIO.read(new ByteArrayInputStream(content));
     }
 
 }

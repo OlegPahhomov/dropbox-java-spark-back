@@ -17,8 +17,8 @@ public class Application {
         start();
 
         after((request, response) -> {// For security reasons do not forget to change "*" to url
-            response.header("Access-Control-Allow-Origin", "http://localhost:3449");
-            //response.header("Access-Control-Allow-Origin", "*");
+            //response.header("Access-Control-Allow-Origin", "http://localhost:3449");
+            response.header("Access-Control-Allow-Origin", "*");
             response.header("Access-Control-Allow-Credentials", "true");
             response.type("application/json");
         });
@@ -32,6 +32,7 @@ public class Application {
         get("/picture/small/:id", FileController::getThumbnail);
         get("/picture/:id", FileController::getPicture);
         post("/add", FileController::addFile, toJson);
+        post("/addjson", FileController::addJsonFile, toJson);
         post("/remove/:id", FileController::deleteFile, toJson);
     }
 
