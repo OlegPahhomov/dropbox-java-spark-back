@@ -33,6 +33,7 @@ public class Application {
         get("/picture/:id", FileController::getPicture);
         post("/add", FileController::addFile, toJson);
         post("/addjson", FileController::addJsonFile, toJson);
+        post("/addjsonbulk", FileController::addJsonBulkFile, toJson);
         post("/remove/:id", FileController::deleteFile, toJson);
     }
 
