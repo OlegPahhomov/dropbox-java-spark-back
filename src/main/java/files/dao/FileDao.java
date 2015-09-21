@@ -28,9 +28,15 @@ public class FileDao {
         return filePs.executeUpdate();
     }
 
-    public static Object getPictures() throws SQLException {
+    public static Object getFiles() throws SQLException {
         try (Connection connection = AppDataSource.getConnection()) {
-            return queryRunner.query(connection, "SELECT * FROM FILE", new MapListHandler());
+            return queryRunner.query(connection, "SELECT * FROM file", new MapListHandler());
+        }
+    }
+
+    public static Object getPicture(Long id) throws SQLException {
+        try (Connection connection = AppDataSource.getConnection()) {
+            return queryRunner.query(connection, "SELECT * FROM file WHERE id=?", new MapListHandler(), id);
         }
     }
 }

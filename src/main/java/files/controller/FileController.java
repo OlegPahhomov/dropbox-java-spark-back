@@ -3,6 +3,7 @@ package files.controller;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import files.dao.FileDao;
 import files.service.FileService;
 import files.service.FileServiceCached;
 import files.validator.FileValidator;
@@ -25,6 +26,12 @@ public class FileController {
         if (FileValidator.invalidInsert(request)) return "";
         FileService.saveFilesToDb(request);
         return "";
+    }
+
+    public static Object getFile(Request request, Response response) throws SQLException {
+        String idString = request.params(":id");
+        if (FileValidator.invalidGetById(idString)) return "";
+        return FileDao.getPicture(Long.valueOf(idString));
     }
 
     public static String addJsonBulkFile(Request request, Response response) throws IOException, ServletException, SQLException {

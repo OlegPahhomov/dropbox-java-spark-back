@@ -1,6 +1,5 @@
 package files.repository;
 
-import config.AppDataSource;
 import files.dao.ContentDao;
 import files.dao.FileDao;
 import files.resizer.Resizer;
@@ -10,10 +9,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- * CRUD* without R (Read)
- * Create, read, update, delete
- */
 public class FileRepository {
 
     public static final String PICTURE = "picture";

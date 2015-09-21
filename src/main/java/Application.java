@@ -16,10 +16,10 @@ public class Application {
 
         start();
 
-        after((request, response) -> {// For security reasons do not forget to change "*" to url
-            //response.header("Access-Control-Allow-Origin", "http://localhost:3449");
+        after((request, response) -> {
             response.header("Access-Control-Allow-Origin", "*");
-            response.header("Access-Control-Allow-Credentials", "true");
+            response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            response.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
             response.type("application/json");
         });
 
@@ -28,7 +28,8 @@ public class Application {
     }
 
     private static void start() throws SQLException {
-        get("/files", (request, response) -> FileDao.getPictures(), toJson);
+        options("/*", (request, response) -> "*");
+        get("/files", (request, response) -> FileDao.getFiles(), toJson);
         get("/picture/small/:id", FileController::getThumbnail);
         get("/picture/:id", FileController::getPicture);
         post("/add", FileController::addFile, toJson);
