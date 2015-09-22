@@ -36,12 +36,13 @@ public class FileService {
         }
     }
 
-    public static void saveJsonFileToDb(JsonObject requestJson) throws IOException, SQLException {
+    public static int saveJsonFileToDb(JsonObject requestJson) throws IOException, SQLException {
         try (Connection connection = AppDataSource.getTransactConnection()) {
             byte[] content = getContent(requestJson);
             String name = getName(requestJson);
-            FileRepository.saveOnePicture(connection, FileUtil.createBufferedImageFrom(content), name);
+            int i = FileRepository.saveOnePicture(connection, FileUtil.createBufferedImageFrom(content), name);
             connection.commit();
+            return i;
         }
     }
 

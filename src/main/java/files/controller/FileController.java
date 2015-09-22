@@ -31,7 +31,7 @@ public class FileController {
     public static Object getFile(Request request, Response response) throws SQLException {
         String idString = request.params(":id");
         if (FileValidator.invalidGetById(idString)) return "";
-        return FileDao.getPicture(Long.valueOf(idString));
+        return FileDao.getFile(Long.valueOf(idString));
     }
 
     public static String addJsonBulkFile(Request request, Response response) throws IOException, ServletException, SQLException {
@@ -42,10 +42,10 @@ public class FileController {
     }
 
 
-    public static String addJsonFile(Request request, Response response) throws IOException, ServletException, SQLException {
+    public static Object addJsonFile(Request request, Response response) throws IOException, ServletException, SQLException {
         JsonObject requestJson = jsonParser.parse(request.body()).getAsJsonObject();
-        FileService.saveJsonFileToDb(requestJson);
-        return "success";
+        int i = FileService.saveJsonFileToDb(requestJson);
+        return FileDao.getFile((long) i).get(0);
     }
 
     public static String deleteFile(Request request, Response response) throws SQLException {

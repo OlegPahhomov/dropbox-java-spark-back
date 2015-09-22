@@ -3,6 +3,7 @@ package files.dao;
 import config.AppDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -10,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.Map;
 
 public class FileDao {
     static QueryRunner queryRunner = new QueryRunner();
@@ -34,7 +37,7 @@ public class FileDao {
         }
     }
 
-    public static Object getPicture(Long id) throws SQLException {
+    public static List<Map<String, Object>> getFile(Long id) throws SQLException {
         try (Connection connection = AppDataSource.getConnection()) {
             return queryRunner.query(connection, "SELECT * FROM file WHERE id=?", new MapListHandler(), id);
         }
