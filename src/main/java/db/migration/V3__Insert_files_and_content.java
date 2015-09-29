@@ -20,6 +20,7 @@ public class V3__Insert_files_and_content implements JdbcMigration {
     public static final String DRAKENSANG = "src/main/resources/db/pics/Drakensang.jpg";
     public static final String PICTURE = "picture";
     public static final String THUMBNAIL = "thumbnail";
+    public static final String FANCY = "fancy";
 
 
     @Override
@@ -37,5 +38,6 @@ public class V3__Insert_files_and_content implements JdbcMigration {
         int fileId = FileDao.saveFileRow(connection, image, file.getName());
         ContentDao.saveContentRow(connection, fileId, PICTURE, Resizer.getPicture(image));
         ContentDao.saveContentRow(connection, fileId, THUMBNAIL, Resizer.getThumbnail(image));
+        ContentDao.saveContentRow(connection, fileId, FANCY, Resizer.getFancy(image));
     }
 }

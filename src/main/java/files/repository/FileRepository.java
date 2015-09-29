@@ -13,11 +13,13 @@ public class FileRepository {
 
     public static final String PICTURE = "picture";
     public static final String THUMBNAIL = "thumbnail";
+    public static final String FANCY = "fancy";
 
     public static int saveOnePicture(Connection connection, BufferedImage image, String fileName) throws SQLException, IOException {
         int fileId = FileDao.saveFileRow(connection, image, fileName);
         ContentDao.saveContentRow(connection, fileId, PICTURE, Resizer.getPicture(image));
         ContentDao.saveContentRow(connection, fileId, THUMBNAIL, Resizer.getThumbnail(image));
+        ContentDao.saveContentRow(connection, fileId, FANCY, Resizer.getFancy(image));
         return fileId;
     }
 

@@ -67,6 +67,12 @@ public class FileController {
         return FileServiceCached.getThumbnail(idString);
     }
 
+    public static Object getFancy(Request request, Response response) throws SQLException {
+        String idString = request.params(":id");
+        if (FileValidator.invalidGetById(idString)) halt();
+        return FileServiceCached.getFancy(idString);
+    }
+
     private static void setRequestMultiPartFile(Request request) {
         request.raw().setAttribute("org.eclipse.multipartConfig", new MultipartConfigElement("/tmp"));
     }

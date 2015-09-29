@@ -41,4 +41,10 @@ public class ContentDao {
             return queryRunner.query(connection, "select content from content where file_id = ? and type = 'thumbnail'", new ScalarHandler<>(), id);
         }
     }
+
+    public static Object getFancy(Long id) throws SQLException {
+        try (Connection connection = AppDataSource.getConnection()) {
+            return queryRunner.query(connection, "select content from content where file_id = ? and type = 'fancy'", new ScalarHandler<>(), id);
+        }
+    }
 }

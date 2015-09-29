@@ -63,12 +63,28 @@ public class FileService {
         }
     }
 
-    public static Object getPicture(Long id) throws SQLException {
-        return ContentDao.getPicture(id);
+    public static Object getPicture(Long id) {
+        try {
+            return ContentDao.getPicture(id);
+        } catch (SQLException e) {
+            throw new RuntimeException("SQL Exception");
+        }
     }
 
-    public static Object getThumbnail(Long id) throws SQLException {
-        return ContentDao.getThumbnail(id);
+    public static Object getThumbnail(Long id){
+        try {
+            return ContentDao.getThumbnail(id);
+        } catch (SQLException e) {
+            throw new RuntimeException("SQL Exception");
+        }
+    }
+
+    public static Object getFancy(Long id){
+        try {
+            return ContentDao.getFancy(id);
+        } catch (SQLException e) {
+            throw new RuntimeException("SQL Exception");
+        }
     }
 
     private static byte[] getContent(JsonObject requestJson) {

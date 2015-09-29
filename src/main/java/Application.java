@@ -25,11 +25,13 @@ public class Application {
 
         after("/picture/:id", (request, response) -> response.type("image/jpg"));
         after("/picture/small/:id", (request, response) -> response.type("image/jpg"));
+        after("/picture/fancy/:id", (request, response) -> response.type("image/jpg"));
     }
 
     private static void start() throws SQLException {
         options("/*", (request, response) -> "*");
         get("/files", (request, response) -> FileDao.getFiles(), toJson);
+        get("/picture/fancy/:id", FileController::getFancy);
         get("/picture/small/:id", FileController::getThumbnail);
         get("/picture/:id", FileController::getPicture);
         post("/add", FileController::addFile, toJson);
